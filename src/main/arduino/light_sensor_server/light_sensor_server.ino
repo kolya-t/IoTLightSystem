@@ -40,3 +40,9 @@ void setup() {
 void loop(void){
   server.handleClient();
 }
+
+void handler() {
+  int value = analogRead(A0);
+  server.send(200, "text/plain", value);
+  Serial.println(value);
+}
