@@ -8,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 import ru.eninja.iot.model.Illumination;
 import ru.eninja.iot.repository.IlluminationRepository;
 
-import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -44,7 +43,7 @@ public class IlluminationService {
     }
 
     @Scheduled(fixedRateString = "${ru.eninja.iot.turning-diode-rate}")
-    public void turnDiode() throws IOException {
+    public void turnDiode() {
         restTemplate.postForObject(isDarkNow() ? diodeTurnOnUri : diodeTurnOffUri, null, Void.class);
     }
 
