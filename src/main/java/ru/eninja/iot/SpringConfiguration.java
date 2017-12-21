@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 import ru.eninja.iot.model.Illumination;
 import ru.eninja.iot.repository.IlluminationRepository;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 @Configuration
-@PropertySource("classpath:application.properties")
+@EnableScheduling
 public class SpringConfiguration {
 
     @Bean

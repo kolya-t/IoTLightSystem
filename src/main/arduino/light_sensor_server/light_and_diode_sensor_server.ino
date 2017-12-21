@@ -1,16 +1,18 @@
+#include <Arduino.h>
+
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 
-const char* ssid = "TP-LINK_C041C4";
-const char* password = "00C041C4";
+const char* ssid = "Redmi";
+const char* password = "qwerty123";
 
 ESP8266WebServer server(80);
 
 #define LED D3
 
-void setup(void){
+void setup() {
   pinMode(LED, OUTPUT);
   Serial.begin(115200);
   WiFi.begin(ssid, password);
@@ -21,6 +23,7 @@ void setup(void){
     delay(500);
     Serial.print(".");
   }
+
   Serial.println("");
   Serial.print("Connected to ");
   Serial.println(ssid);
@@ -31,6 +34,7 @@ void setup(void){
     Serial.println("MDNS responder started");
   }
 
+  server.on("/", handler);
   server.on("/on", handleOn);
   server.on("/off", handleOff);
 
@@ -40,6 +44,12 @@ void setup(void){
 
 void loop(void){
   server.handleClient();
+}
+
+void handler() {
+  int value = analogRead(A0);
+  server.send(200, "text/plain", String(value));
+  Serial.println(value);
 }
 
 void handleOn() {
